@@ -17,30 +17,16 @@ def get_db_connection():
     return conn
 
 # Function to execute a query and return the result as a pandas DataFrame
-def run_query(query):
-    conn = get_db_connection()
-    if conn is None:
-        return None
-    try:
-        df = pd.read_sql(query, conn)
-        return df
-    except Exception as e:
-        st.error(f"Error executing query: {e}")
-        return None
-    finally:
-        conn.close()
-
-# Function to load a model from a specified file path
-def load_model(file_path):
+ def load_model(file_path):
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Model file not found: {file_path}")
     with open(file_path, "rb") as file:
         return pickle.load(file)
 
 # Define paths for the .pkl files
-parkinson_model_path = r"G:\Data Science\project\Streamlit\env\Scripts\XGBparkinson.pkl"
-kidney_model_path = r"G:\Data Science\project\Streamlit\env\Scripts\XGBkidney.pkl"         
-liver_model_path = r"G:\Data Science\project\Streamlit\env\Scripts\XGBliver.pkl"           
+parkinson_model_path = "parkinson.pkl"
+kidney_model_path ="kidney.pkl"       
+liver_model_path ="liver.pkl"          
 
 # Load the models
 try:
@@ -110,10 +96,10 @@ elif nav == "Kidney Disease":
     "Specific Gravity": st.selectbox("Specific Gravity", [1.005, 1.01, 1.015]),
     "Albumin": st.selectbox("Albumin", [0, 1, 2, 3]),  # Assuming Albumin is categorical
     "Sugar": st.selectbox("Sugar", [0, 1]),  # Assuming Sugar is binary (0 or 1)
-    "Red Blood Cells": st.selectbox("Red Blood Cells", ("Normal", "Abnormal")),
-    "Pus Cell": st.selectbox("Pus Cell", ("Normal", "Abnormal")),
-    "Pus Cell Clumps": st.selectbox("Pus Cell Clumps", ("Present", "Not Present")),
-    "Bacteria": st.selectbox("Bacteria", ("Present", "Not Present")),
+    "Red Blood Cells": st.selectbox("Red Blood Cells", [0, 1]),
+    "Pus Cell": st.selectbox("Pus Cell", [0, 1]),
+    "Pus Cell Clumps": st.selectbox("Pus Cell Clumps", [1, 0]),
+    "Bacteria": st.selectbox("Bacteria", [1, 0]),
     "Blood Glucose Random": st.number_input("Blood Glucose Random", min_value=0.0, value=0.0),
     "Blood Urea": st.number_input("Blood Urea", min_value=0.0, value=0.0),
     "Serum Creatinine": st.number_input("Serum Creatinine", min_value=0.0, value=0.0),
