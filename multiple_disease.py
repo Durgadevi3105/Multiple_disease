@@ -36,9 +36,9 @@ def load_model(file_path):
 
 
 # Define paths for the .pkl files
-parkinson_model_path = "parkinson.pkl"
-kidney_model_path ="kidney.pkl"       
-liver_model_path ="liver.pkl"          
+parkinson_model_path = "/content/parkinson.pkl"
+kidney_model_path ="/content/kidney.pkl"       
+liver_model_path ="/content/liver.pkl"          
 
 # Load the models
 try:
