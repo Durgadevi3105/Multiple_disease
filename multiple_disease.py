@@ -32,11 +32,12 @@ def run_query(query):
         conn.close()
 
 # Function to execute a query and return the result as a pandas DataFrame
- def load_model(file_path):
+def load_model(file_path):
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Model file not found: {file_path}")
     with open(file_path, "rb") as file:
-        return pickle.load(file)
+        return pickle.load(file) 
+
 
 # Define paths for the .pkl files
 parkinson_model_path = "parkinson.pkl"
