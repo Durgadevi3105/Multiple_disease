@@ -8,11 +8,8 @@ import os
 # Function to connect to the PostgreSQL database
 def get_db_connection():
     conn = psycopg2.connect(
-         host="dbdurga.c7igy8goq28e.ap-south-1.rds.amazonaws.com",
-         port=5432,
-        database="postgres",
-        user="postgres",
-        password="tharshan"
+         host="dbdurga.c7igy8goq28e.ap-south-1.compute.amazonaws.com",
+         
     )
 return conn
 
