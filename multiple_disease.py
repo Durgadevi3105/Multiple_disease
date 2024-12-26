@@ -14,7 +14,7 @@ def get_db_connection():
         user="postgres",
         password="tharshan"
     )
-return conn
+ return conn
 
 #Function to execute a query and return the result as a pandas DataFrame
 
