@@ -14,7 +14,22 @@ def get_db_connection():
         user="postgres",
         password="tharshan"
     )
-    return conn
+ return conn
+
+#Function to execute a query and return the result as a pandas DataFrame
+
+def run_query(query):
+    conn = get_db_connection()
+    if conn is None:
+        return None
+    try:
+        df = pd.read_sql(query, conn)
+        return df
+    except Exception as e:
+        st.error(f"Error executing query: {e}")
+        return None
+    finally:
+        conn.close()
 
 # Function to execute a query and return the result as a pandas DataFrame
  def load_model(file_path):
