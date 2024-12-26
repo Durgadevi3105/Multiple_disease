@@ -10,7 +10,7 @@ def get_db_connection():
     conn = psycopg2.connect(
          host="dbdurga.c7igy8goq28e.ap-south-1.compute.amazonaws.com",
          
-    )
+)
 return conn
 
 #Function to execute a query and return the result as a pandas DataFrame
