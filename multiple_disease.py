@@ -72,7 +72,7 @@ elif nav == "Kidney Disease":
         st.stop() 
     
     # Define input fields for Kidney disease prediction
-   Age = st.number_input("Age", min_value=1, max_value=120, value=30)
+    Age = st.number_input("Age", min_value=1, max_value=120, value=30)
     Blood_Pressure = st.number_input("Blood Pressure", min_value=1, max_value=200, value=80)
     Specific_Gravity = st.number_input("Specific Gravity", min_value=1.0, max_value=1.03, value=1.02, format="%.2f")
     Albumin = st.selectbox("Albumin", [0, 1, 2, 3, 4])  # Assuming Albumin is categorical (0-4)
