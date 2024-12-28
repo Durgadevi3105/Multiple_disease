@@ -117,9 +117,9 @@ elif nav == "Kidney Disease":
     if st.button("Predict"):
         try:
            prediction = kidney_model.predict(input_features)
-            if prediction[0] == 1:
+           if prediction[0] == 1:
                 st.success("The model predicts that the individual has Kidney disease.")
-            else:
+           else:
                 st.success("The model predicts that the individual does not have Kidney disease.")
         except Exception as e:
             st.error(f"An error occurred during prediction: {e}")
