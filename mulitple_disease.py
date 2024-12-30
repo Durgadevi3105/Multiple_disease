@@ -2,11 +2,9 @@ import streamlit as st
 import pickle
 import numpy as np
 
-parkinsons_model = pickle.load(open('parkinsons.pkl', 'rb'))
+parkinsons_model = pickle.load(open('parkinson.pkl', 'rb'))
 liver_model = pickle.load(open('liver.pkl', 'rb'))
 kidney_model= pickle.load(open('kidney.pkl','rb'))
-
-st.image('predict_image.jpg',width=100 )
 
 st.title("Disease Prediction App")
 
