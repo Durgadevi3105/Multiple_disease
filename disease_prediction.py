@@ -128,7 +128,7 @@ elif nav == "Liver Disease":
 
     # Load the liver's model
     try:
-        liver_model = pickle.load(open('XGBLiver.pkl', 'rb'))
+        liver_model = pickle.load(open('XGBliver.pkl', 'rb'))
     except FileNotFoundError:
         st.error("Model file not found. Please check the file path.")
         st.stop()    
