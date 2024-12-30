@@ -15,7 +15,7 @@ if nav == "Parkinson's Disease":
     
     # Load the Parkinson's model
     try:
-        parkinson_model = pickle.load(open(r'XGBparkinson.pkl', 'rb'))
+        parkinson_model = pickle.load(open(r'XGBparkinsons.pkl', 'rb'))
     except FileNotFoundError:
         st.error("Model file not found. Please check the file path.")
         st.stop()
