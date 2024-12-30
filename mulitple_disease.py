@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-parkinsons_model = pickle.load(open('parkinson.pkl', 'rb'))
+parkinson_model = pickle.load(open('parkinson.pkl', 'rb'))
 liver_model = pickle.load(open('liver.pkl', 'rb'))
 kidney_model= pickle.load(open('kidney.pkl','rb'))
 
