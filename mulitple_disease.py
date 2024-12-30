@@ -165,10 +165,5 @@ def kidney_input():
             st.error(f"An error occurred during prediction: {e}")
  
 
+st.text("Thank you for using the dashboard!")
 
-if page == "Parkinson's Prediction":
-    parkinsons_input()
-elif page == "Liver Disease Prediction":
-    liver_input()
-elif page == "Kidney Disease Prediction":
-    kidney_input()
