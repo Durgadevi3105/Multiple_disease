@@ -2,21 +2,25 @@ import streamlit as st
 import pickle
 import numpy as np
 
-parkinsons_model = pickle.load(open('parkinsons.pkl', 'rb'))
-liver_model = pickle.load(open('liver.pkl', 'rb'))
-kidney_model= pickle.load(open('kidney.pkl','rb'))
 
 st.title("Disease Prediction App")
 
 # Sidebar navigation
-st.sidebar.title("Select a Disease to Prediction")
-page = st.sidebar.selectbox("Choose any one", ["Parkinson's Prediction", "Liver Disease Prediction","Kidney Disease Prediction"])
-
+nav = st.sidebar.radio("Select Disease Prediction", ["Parkinson's Disease", "Kidney Disease", "Liver Disease"])
+if nav == "Parkinson's Disease":
+    st.header("Parkinson's Disease Prediction")
+    
+    # Load the Parkinson's model
+    try:
+        parkinsons_model = pickle.load(open(r'parkinsons.pkl', 'rb'))
+    except FileNotFoundError:
+        st.error("Model file not found. Please check the file path.")
+        st.stop()
 def parkinsons_input():
     st.header("Parkinson's Disease Prediction")
-    MDVP_Fo = st.number_input("MDVP:Fo (Hz)", step=0.01)
-    MDVP_Fhi = st.number_input("MDVP:Fhi (Hz)", step=0.01)
-    MDVP_Flo = st.number_input("MDVP:Flo (Hz)", step=0.01)
+    MDVP_Fo_Hz= st.number_input("MDVP:Fo (Hz)", step=0.01)
+    MDVP_Fhi_Hz= st.number_input("MDVP:Fhi (Hz)", step=0.01)
+    MDVP_Flo_Hz = st.number_input("MDVP:Flo (Hz)", step=0.01)
     MDVP_Jitter_percent = st.number_input("MDVP:Jitter (%)", step=0.0001, format="%.4f")
     MDVP_Jitter_Abs = st.number_input("MDVP:Jitter (Abs)", step=0.000001, format="%.6f")
     MDVP_RAP = st.number_input("MDVP:RAP", step=0.0001, format="%.4f")
@@ -38,19 +42,28 @@ def parkinsons_input():
     PPE = st.number_input("PPE", step=0.0001, format="%.4f")
     placeholder1=st.empty()
     if st.button("Parkinson's Prediction"):
-        input_features = np.array([[MDVP_Fo, MDVP_Fhi, MDVP_Flo, MDVP_Jitter_percent,
-                            MDVP_Jitter_Abs, MDVP_RAP, MDVP_PPQ, Jitter_DDP, MDVP_Shimmer,
-                            MDVP_Shimmer_dB, Shimmer_APQ3,Shimmer_APQ5,MDVP_APQ,Shimmer_DDA,NHR, HNR, 
-                            RPDE, DFA, spread1, spread2,D2, PPE]])
-        parkinsons = parkinsons_model.predict(input_features)[0]  # 0 = No Disease, 1 = Disease
-        
-        if parkinsons == 1:
-             placeholder1.markdown("""<div style ="text-align: center;font-size: 60 px; color: red;">
-                        The model predicts that the person has Parkinson's Disease😢 </div>""", unsafe_allow_html=True)
-        else:             
-             placeholder1.markdown("""<div style ="text-align: center;font-size: 60 px; color: red;">
-                        The model predicts that the person does not have Parkinson's Disease  </div>""", unsafe_allow_html=True)
-             st.balloons()         
+         input_features = np.array([[MDVP_Fo_Hz, MDVP_Fhi_Hz, MDVP_Flo_Hz, MDVP_Jitter_percent, MDVP_Jitter_Abs,
+                                 MDVP_RAP, MDVP_PPQ, Jitter_DDP, MDVP_Shimmer, MDVP_Shimmer_dB,
+                                 Shimmer_APQ3, Shimmer_APQ5, MDVP_APQ, Shimmer_DDA, NHR, HNR,
+                                 RPDE, DFA, spread1, spread2, D2, PPE]])
+if st.button("Predict"):
+        try:
+            prediction = parkinsons_model.predict(input_features)
+            if prediction[0] == 1:
+                st.success("The model predicts that the individual has Parkinson's disease.")
+            else:
+                st.success("The model predicts that the individual does not have Parkinson's disease.")
+        except Exception as e:
+            st.error(f"An error occurred during prediction: {e}")
+elif nav == "Liver Disease":
+    st.header("Liver Disease Prediction")
+
+    # Load the liver's model
+    try:
+        liver_model = pickle.load(open('liver.pkl', 'rb'))
+    except FileNotFoundError:
+        st.error("Model file not found. Please check the file path.")
+        st.stop()             
 def liver_input():
     st.write("Liver Disease Prediction")
     Age = st.number_input("Age", min_value=1, max_value=120, value=50)
@@ -73,16 +86,26 @@ def liver_input():
                             Alamine_Aminotransferase,Aspartate_Aminotransferase,Total_Protiens,
                                Albumin, Albumin_and_Globulin_Ratio   ]])
         
-        Liver = liver_model.predict(input_features)[0]  # 0 = No Disease, 1 = Disease
-        
-        if Liver == 1:
-            placeholder2.markdown("""<div style ="text-align: center;font-size: 60 px; color: red;">
-                        The model predicts that the person has Liver Disease😢 </div>""", unsafe_allow_html=True)
-        else:
-            placeholder2.markdown("""<div style ="text-align: center;font-size: 60 px; color: red;">
-                        The model predicts that the person does not have Liver Disease  </div>""", unsafe_allow_html=True)
-            st.balloons()
-        
+    for col in range(input_features.shape[1]):
+        input_features[:, col] = [str(x).encode('utf-8').decode('utf-8') if isinstance(x, str) else x for x in input_features[:, col]]
+    # Button for prediction
+    if st.button("Predict"):
+        try:
+            prediction = liver_model.predict(input_features)
+            if prediction[0] == 0:
+                st.success("The model predicts that the individual does not have Liver disease.")
+            else:
+                st.success("The model predicts that the individual has Liver disease.")
+        except Exception as e:
+            st.error(f"An error occurred during prediction: {e}")      
+    elif nav == "Kidney Disease":
+      st.header("Kidney Disease Prediction")
+    # Load the kidney model
+    try:
+        kidney_model = pickle.load(open(r'kidney.pkl', 'rb'))
+    except FileNotFoundError:
+        st.error("Model file not found. Please check the file path.")
+        st.stop()         
 def kidney_input():
 # App Title
     st.write("Kidney Disease Prediction App")
@@ -132,17 +155,15 @@ def kidney_input():
 
 # Predict Button
     if st.button("Predict"):
-        prediction = kidney_model.predict(input_feature)
-        
-        if prediction[0] == 1:
-                placeholder3.markdown("""<div style ="text-align: center;font-size: 60 px; color: red;">
-                        The model predicts that the person has Kidney Disease😢 </div>""", unsafe_allow_html=True)
-        else:
-            placeholder3.markdown("""<div style ="text-align: center;font-size: 60 px; color: red;">
-                        The model predicts that the person does not have Kidney Disease  </div>""", unsafe_allow_html=True)
-            st.balloons()
-
-    
+        try:
+            prediction = kidney_model.predict(input_features)
+            if prediction[0] == 1:
+                st.success("The model predicts that the individual has Kidney disease.")
+            else:
+                st.success("The model predicts that the individual does not have Kidney disease.")
+        except Exception as e:
+            st.error(f"An error occurred during prediction: {e}")
+ 
 
 
 if page == "Parkinson's Prediction":
