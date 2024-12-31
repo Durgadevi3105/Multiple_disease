@@ -49,10 +49,7 @@ if nav == "Parkinson's Disease":
                                  MDVP_RAP, MDVP_PPQ, Jitter_DDP, MDVP_Shimmer, MDVP_Shimmer_dB,
                                  Shimmer_APQ3, Shimmer_APQ5, MDVP_APQ, Shimmer_DDA, NHR, HNR,
                                  RPDE, DFA, spread1, spread2, D2, PPE]])
-    if input_features.shape[1] != 22:
-       st.error(f"Feature shape mismatch: expected 22, got {input_features.shape[1]}")
-    else:
-       prediction = parkinson_model.predict(input_features)
+    
     # Button for prediction
     if st.button("Predict"):
         try:
