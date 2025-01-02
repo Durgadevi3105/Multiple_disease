@@ -101,7 +101,7 @@ elif nav == "Kidney Disease":
 
     
     # Map Specific Gravity to encoded values (if required)
-    specific_gravity_mapping = {1.005: 0, 1.01: 1, 1.015: 2}  # Example mapping
+    specific_gravity_mapping = {1.005: 0, 1.01: 1, 1.015: 2, 1.02: 3, 1.025: 4, 1.03: 5}  # Example mapping
     Specific_Gravity = specific_gravity_mapping.get(Specific_Gravity, -1)  # Default to -1 if not mapped
     
     # Prepare input features as a 2D array for prediction
