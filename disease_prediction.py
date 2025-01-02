@@ -46,7 +46,7 @@ if nav == "Parkinson's Disease":
     PPE = st.number_input("Pitch Period Entropy (PPE)", min_value=0.0, value=0.0)
 
     # Prepare input features as a 2D array for prediction
-    input_features = np.array([[MDVP_Fo_Hz, MDVP_Fhi_Hz, MDVP_Flo_Hz, MDVP_Fo_Hz2, MDVP_Jitter_percent, MDVP_Jitter_Abs,
+    input_features = np.array([[MDVP_Fo_Hz, MDVP_Fhi_Hz, MDVP_Flo_Hz,  MDVP_Jitter_percent, MDVP_Jitter_Abs,
                                  MDVP_RAP, MDVP_PPQ, Jitter_DDP, MDVP_Shimmer, MDVP_Shimmer_dB,
                                  Shimmer_APQ3, Shimmer_APQ5, MDVP_APQ, Shimmer_DDA, NHR, HNR,
                                  RPDE, DFA, spread1, spread2, D2, PPE,0]])
