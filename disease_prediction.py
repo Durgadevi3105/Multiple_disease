@@ -24,6 +24,7 @@ if nav == "Parkinson's Disease":
     MDVP_Fo_Hz = st.number_input("Fundamental Frequency (MDVP:Fo(Hz))", min_value=0.0, value=0.0)
     MDVP_Fhi_Hz = st.number_input("Maximum Frequency (MDVP:Fhi(Hz))", min_value=0.0, value=0.0)
     MDVP_Flo_Hz = st.number_input("Minimum Frequency (MDVP:Flo(Hz))", min_value=0.0, value=0.0)
+    MDVP_Fo_Hz2 = st.number_input("Additional Fundamental Frequency (MDVP:Fo(Hz))", min_value=0.0, value=0.0)
     MDVP_Jitter_percent = st.number_input("Jitter (MDVP:Jitter(%))", min_value=0.0, value=0.0)
     MDVP_Jitter_Abs = st.number_input("Absolute Jitter (MDVP:Jitter(Abs))", min_value=0.0, value=0.0)
     MDVP_RAP = st.number_input("Relative Average Perturbation (MDVP:RAP)", min_value=0.0, value=0.0)
@@ -45,7 +46,7 @@ if nav == "Parkinson's Disease":
     PPE = st.number_input("Pitch Period Entropy (PPE)", min_value=0.0, value=0.0)
 
     # Prepare input features as a 2D array for prediction
-    input_features = np.array([[MDVP_Fo_Hz, MDVP_Fhi_Hz, MDVP_Flo_Hz, MDVP_Jitter_percent, MDVP_Jitter_Abs,
+    input_features = np.array([[MDVP_Fo_Hz, MDVP_Fhi_Hz, MDVP_Flo_Hz, MDVP_Fo_Hz2, MDVP_Jitter_percent, MDVP_Jitter_Abs,
                                  MDVP_RAP, MDVP_PPQ, Jitter_DDP, MDVP_Shimmer, MDVP_Shimmer_dB,
                                  Shimmer_APQ3, Shimmer_APQ5, MDVP_APQ, Shimmer_DDA, NHR, HNR,
                                  RPDE, DFA, spread1, spread2, D2, PPE]])
