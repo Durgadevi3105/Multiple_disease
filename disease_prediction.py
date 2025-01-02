@@ -111,7 +111,8 @@ elif nav == "Kidney Disease":
                                 1 if Hypertension == "yes" else 0,1 if Diabetes_Mellitus == "yes" else 0,1 if Coronary_Artery_Disease == "yes" else 0,
                                 1 if Appetite == "poor" else 0,1 if Pedal_Edema == "yes" else 0,1 if Anemia == "yes" else 0]]).astype(float)
     # Cleanse string columns (if necessary)
-    
+    for col in range(input_features.shape[1]):
+        input_features[:, col] = [str(x).encode('utf-8').decode('utf-8') if isinstance(x, str) else x for x in input_features[:, col]]
     # Button for prediction
     if st.button("Predict"):
         try:
